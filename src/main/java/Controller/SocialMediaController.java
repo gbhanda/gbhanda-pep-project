@@ -2,8 +2,7 @@ package Controller;
 
 import Service.AccountService;
 import Service.MessageService;
-import Model.Account;
-import Model.Message;
+import Model.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,51 +43,6 @@ public class SocialMediaController {
         return app;
     }
 
-    public class AccountInput{
-        private String username;
-        private String password;
-        public String getUsername(){
-            return username;
-        }
-        public void setUsername(String username){
-            this.username = username;
-        }
-        public String getPassword(){
-            return password;
-        }
-        public void setPassword(String password){
-            this.password = password;
-        }
-    }
-
-    public class MessageInputIncomplete{
-
-        private String message_text;
-        public void setMessageText(String message_text){
-            this.message_text = message_text;
-        }
-        public String getMessageText(){
-            return message_text;
-        }
-    }
-
-    public class MessageInput extends MessageInputIncomplete{
-        private int posted_by;
-        private long time_posted_epoch;
-        public void setPostedBy(int posted_by){
-            this.posted_by = posted_by;
-        }
-        public int getPostedBy(){
-            return posted_by;
-        }
-        public void setTimePostedEpoch(long time_posted_epoch){
-            this.time_posted_epoch = time_posted_epoch;
-        }
-        public long getTimePostedEpoch(){
-            return time_posted_epoch;
-        }
-    }
-
     /**
      * This is an example handler for an example endpoint.
      * @param context The Javalin Context object manages information about both the HTTP request and response.
@@ -96,6 +50,7 @@ public class SocialMediaController {
     private void createAccountHandler (Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         AccountInput accountInput= mapper.readValue(context.body(), AccountInput.class);
+        
         Account account = accountService.createAccount(accountInput.getUsername(), accountInput.getPassword());
         if(account == null){
             context.status(400);
@@ -155,7 +110,7 @@ public class SocialMediaController {
 
     private void updateMessageByIdHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        MessageInputIncomplete messageInputIncomplete= mapper.readValue(context.body(), MessageInputIncomplete.class);
+        UpdateMessageInput messageInputIncomplete= mapper.readValue(context.body(), UpdateMessageInput.class);
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.updateMessage(messageId, messageInputIncomplete.getMessageText());
         if(message == null){

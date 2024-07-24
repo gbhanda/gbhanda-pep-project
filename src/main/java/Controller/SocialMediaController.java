@@ -146,7 +146,9 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.deleteMessageById(messageId);
-        context.json(mapper.writeValueAsString(message));  
+        if(message != null){
+            context.json(mapper.writeValueAsString(message)); 
+        } 
     }
 
     private void updateMessageByIdHandler(Context context) throws JsonProcessingException{

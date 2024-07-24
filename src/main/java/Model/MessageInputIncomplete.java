@@ -1,7 +1,7 @@
 package Model;
 
 
-public class UpdateMessageInput{
+public class MessageInputIncomplete{
 
     private String message_text;
     public void setMessage_text(String message_text){

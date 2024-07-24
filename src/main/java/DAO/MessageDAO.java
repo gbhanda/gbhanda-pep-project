@@ -66,7 +66,7 @@ public class MessageDAO {
                     messageId, 
                     resultSet.getInt("posted_by"), 
                     resultSet.getString("message_text"), 
-                    resultSet.getLong("time_post_epoch")
+                    resultSet.getLong("time_posted_epoch")
                 );
             }
         }
@@ -130,7 +130,7 @@ public class MessageDAO {
                     resultSet.getInt("message_id"), 
                     resultSet.getInt("posted_by"), 
                     resultSet.getString("message_text"), 
-                    resultSet.getLong("time_post_epoch")
+                    resultSet.getLong("time_posted_epoch")
                 ));
             }
             return messages;

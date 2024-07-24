@@ -125,7 +125,7 @@ public class MessageDAO {
 
             preparedStatement.setInt(1, accountId);            
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            while(resultSet.next()){
                 messages.add(new Message(
                     resultSet.getInt("message_id"), 
                     resultSet.getInt("posted_by"), 

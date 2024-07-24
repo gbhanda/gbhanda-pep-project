@@ -95,7 +95,7 @@ public class SocialMediaController {
      */
     private void createAccountHandler (Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        AccountInput accountInput= mapper.readValue(context.body().toString(), AccountInput.class);
+        AccountInput accountInput= mapper.readValue(context.body(), AccountInput.class);
         Account account = accountService.createAccount(accountInput.getUsername(), accountInput.getPassword());
         if(account == null){
             context.status(400);
@@ -107,7 +107,7 @@ public class SocialMediaController {
 
     private void processLoginHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        AccountInput accountInput= mapper.readValue(context.body().toString(), AccountInput.class);
+        AccountInput accountInput= mapper.readValue(context.body(), AccountInput.class);
         Account account = accountService.userLogin(accountInput.getUsername(), accountInput.getPassword());
         if(account == null){
             context.status(401);
@@ -119,7 +119,7 @@ public class SocialMediaController {
 
     private void createNewMessageHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        MessageInput messageInput= mapper.readValue(context.body().toString(), MessageInput.class);
+        MessageInput messageInput= mapper.readValue(context.body(), MessageInput.class);
         Message message = messageService.createNewMessage(messageInput.getPostedBy(), messageInput.getMessageText(), messageInput.getTimePostedEpoch());
         if(message == null){
             context.status(400);
@@ -151,7 +151,7 @@ public class SocialMediaController {
 
     private void updateMessageByIdHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
-        MessageInputIncomplete messageInputIncomplete= mapper.readValue(context.body().toString(), MessageInputIncomplete.class);
+        MessageInputIncomplete messageInputIncomplete= mapper.readValue(context.body(), MessageInputIncomplete.class);
         int messageId = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.updateMessage(messageId, messageInputIncomplete.getMessageText());
         if(message == null){

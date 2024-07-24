@@ -22,7 +22,7 @@ public class MessageService {
     }
 
     public Message createNewMessage(int postedBy, String messageText, Long timePostedEpoch){
-        if(accountDAO.userIdExists(postedBy) || messageText.isBlank() || messageText.length() > 255){
+        if(!accountDAO.userIdExists(postedBy) || messageText.isBlank() || messageText.length() > 255){
             return null;
         }
         return messageDAO.createMessage(postedBy, messageText, timePostedEpoch);

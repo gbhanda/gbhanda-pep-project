@@ -75,7 +75,7 @@ public class SocialMediaController {
     private void createNewMessageHandler(Context context) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         MessageInput messageInput= mapper.readValue(context.body(), MessageInput.class);
-        Message message = messageService.createNewMessage(messageInput.getPostedBy(), messageInput.getMessageText(), messageInput.getTimePostedEpoch());
+        Message message = messageService.createNewMessage(messageInput.getPosted_by(), messageInput.getMessage_text(), messageInput.getTime_posted_epoch());
         if(message == null){
             context.status(400);
         }
@@ -112,7 +112,7 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         UpdateMessageInput messageInputIncomplete= mapper.readValue(context.body(), UpdateMessageInput.class);
         int messageId = Integer.parseInt(context.pathParam("message_id"));
-        Message message = messageService.updateMessage(messageId, messageInputIncomplete.getMessageText());
+        Message message = messageService.updateMessage(messageId, messageInputIncomplete.getMessage_text());
         if(message == null){
             context.status(400);
         }
